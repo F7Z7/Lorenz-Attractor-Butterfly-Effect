@@ -1,0 +1,84 @@
+# MATLAB/Simulink Project .gitignore
+
+# MATLAB autosave files
+*.asv
+*.m~
+
+# Simulink autosave files
+*.autosave
+*.slxc
+
+# Simulink cache files
+slprj/
+*.slxp
+
+# Code generation
+codegen/
+ert_main.c
+*.mex*
+*.o
+*.obj
+
+# Simulink Real-Time
+*.dlm
+*.mldatx
+
+# Model reference cache
+slprj/_sfprj/
+slprj/_jitprj/
+sfprj/
+
+# Embedded Coder
+*_ert_rtw/
+*_grt_rtw/
+*.tmw
+
+# Stateflow generated files
+*.dmr
+
+# MATLAB compiler
+*.ctf
+
+# Simulink Report Generator
+slreportgen/
+
+# Coverage results
+coverage/
+*.gcda
+*.gcno
+
+# Profiler results
+profile_results/
+
+# Build artifacts
+*.exe
+*.dll
+*.so
+*.dylib
+*.a
+*.lib
+
+# MATLAB App files
+*.mlappinstall
+
+# Simulink Test results
+*.mldatx
+
+# Temporary files
+*.tmp
+*~
+
+# Operating system files
+.DS_Store
+Thumbs.db
+Desktop.ini
+
+# IDE files
+.vscode/
+.idea/
+*.sublime-*
+
+# Custom project files (optional - uncomment if needed)
+# data/
+# outputs/
+# logs/
