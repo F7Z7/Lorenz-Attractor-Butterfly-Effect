@@ -28,9 +28,11 @@ for k = 1:2
     set_param([model '/IntegratorZ'],'InitialCondition',num2str(ICs(k,3)));
 
     simOut = sim(model);
-X = simOut.X.Data;
-Y = simOut.Y.Data;
-Z = simOut.Z.Data;
+logs = simOut.logsout;
+X = logs.get('X').Values.Data;
+Y = logs.get('Y').Values.Data;
+Z = logs.get('Z').Values.Data;
+
 
     % remove transient
     cut = round(0.2*length(X));
