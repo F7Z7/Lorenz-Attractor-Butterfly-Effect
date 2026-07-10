@@ -1,8 +1,8 @@
-clc; close all;  
+clc;
+close all;
 
 model = 'lorentz';
 load_system(model);
-
 
 sigma = 10;
 rho   = 28;
@@ -12,40 +12,45 @@ set_param(model,'StopTime','60');
 set_param(model,'Solver','ode45');
 set_param(model,'MaxStep','0.01');
 
-ICs = [1 1 1; 1.0001 1 1];
-colors = [0 0.45 0.74; 0.85 0.33 0.1];
 
-figure('Color','k');
-ax = axes('Color','k'); hold on; grid on;
-ax.XColor='w'; ax.YColor='w'; ax.ZColor='w';
-view(45,25);
-axis([-25 25 -35 35 0 55]);
+simOut = sim(model);
 
-for k = 1:2
-
-    set_param([model '/IntegratorX'],'InitialCondition',num2str(ICs(k,1)));
-    set_param([model '/IntegratorY'],'InitialCondition',num2str(ICs(k,2)));
-    set_param([model '/IntegratorZ'],'InitialCondition',num2str(ICs(k,3)));
-
-    simOut = sim(model);
 logs = simOut.logsout;
+
 X = logs.get('X').Values.Data;
 Y = logs.get('Y').Values.Data;
 Z = logs.get('Z').Values.Data;
 
+fprintf('X: %.2f  %.2f\n',min(X),max(X))
+fprintf('Y: %.2f  %.2f\n',min(Y),max(Y))
+fprintf('Z: %.2f  %.2f\n',min(Z),max(Z))
+figure('Color','k')
 
-    % remove transient
-    cut = round(0.2*length(X));
-    X = X(cut:end); Y = Y(cut:end); Z = Z(cut:end);
+ax = axes;
+hold(ax,'on')
+grid(ax,'on')
 
-    h = animatedline('Color',colors(k,:),'LineWidth',1.2);
-    drawnow;  % ✅ REQUIRED
+xlabel('X')
+ylabel('Y')
+zlabel('Z')
 
-    for i = 1:10:length(X)
-        addpoints(h,X(i),Y(i),Z(i));
-        axis manual;
-        drawnow;
-    end
+view(45,25)
+
+axis([-25 25 -35 35 0 55])
+
+h = plot3(NaN,NaN,NaN,...
+          'Color',[0 0.8 1],...
+          'LineWidth',1.5);
+
+for i = 1:5:length(X)
+
+    set(h,...
+        'XData',X(1:i),...
+        'YData',Y(1:i),...
+        'ZData',Z(1:i));
+
+    drawnow
+
+    pause(0.01)      % controls animation speed
 
 end
-
