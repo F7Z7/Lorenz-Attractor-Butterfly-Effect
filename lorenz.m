@@ -1,4 +1,4 @@
-function dx = lorenz(~,x)
+ function dx = lorenz(~,x)
 
 sigma = 10;
 rho = 28;
